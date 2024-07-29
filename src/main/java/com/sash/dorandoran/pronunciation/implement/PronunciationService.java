@@ -1,11 +1,13 @@
-package com.sash.dorandoran.pronunciation;
+package com.sash.dorandoran.pronunciation.implement;
 
 import com.sash.dorandoran.feign.client.ClovaStudioClient;
 import com.sash.dorandoran.feign.dto.ChatCompletionRequest;
 import com.sash.dorandoran.feign.properties.ChatCompletionProperties;
+import com.sash.dorandoran.pronunciation.presentation.dto.PronunciationRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -20,6 +22,9 @@ public class PronunciationService {
     private final ClovaStudioClient clovaStudioClient;
     private final ChatCompletionProperties chatCompletionProperties;
 
+    @Value("${pronunciation-similarity-prompt}")
+    private String prompt;
+
     public int getPronunciationSimilarity(List<PronunciationRequest> request) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < request.size(); i++) {
@@ -31,7 +36,7 @@ public class PronunciationService {
 
         ChatCompletionRequest.Message systemMessage = ChatCompletionRequest.Message.builder()
                 .role("system")
-                .content(chatCompletionProperties.getPrompt())
+                .content(prompt)
                 .build();
 
         ChatCompletionRequest.Message userMessage = ChatCompletionRequest.Message.builder()
