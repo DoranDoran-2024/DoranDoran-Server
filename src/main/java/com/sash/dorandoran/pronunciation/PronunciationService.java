@@ -1,4 +1,4 @@
-package com.sash.dorandoran.chat;
+package com.sash.dorandoran.pronunciation;
 
 import com.sash.dorandoran.feign.client.ClovaStudioClient;
 import com.sash.dorandoran.feign.dto.ChatCompletionRequest;
@@ -15,12 +15,12 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class ChatService {
+public class PronunciationService {
 
     private final ClovaStudioClient clovaStudioClient;
     private final ChatCompletionProperties chatCompletionProperties;
 
-    public int getChatCompletion(List<ChatRequest> request) {
+    public int getPronunciationSimilarity(List<PronunciationRequest> request) {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < request.size(); i++) {
             sb.append(i + 1);
