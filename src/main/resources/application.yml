@@ -7,3 +7,39 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
         dialect: org.hibernate.dialect.MySQLDialect
+
+clova:
+  chat-completion:
+    api-key: ${CLOVA_CHAT_COMPLETION_API_KEY}
+    apigw-key: ${CLOVA_CHAT_COMPLETION_APIGW_KEY}
+    request-id: ${CLOVA_CHAT_COMPLETION_REQUEST_ID}
+    prompt: |
+      1번부터 n번까지 입력한 두 단어의 유사도를 각각 측정하고 n으로 나누어 평균을 구합니다. 
+      한글 기준으로 정확하게 문자열의 길이를 계산하고, 유사도 점수의 평균만 숫자로 반환하세요. 다른 설명 없이 숫자만 반환하세요.
+
+      Levenshtein Distance 계산:
+      Levenshtein Distance는 두 문자열 사이의 최소 편집 거리(삽입, 삭제, 대체 연산)입니다.
+      공식:
+      d(i, 0) = i
+      d(0, j) = j
+      d(i, j) = min(d(i-1, j) + 1, d(i, j-1) + 1, d(i-1, j-1) + δ(s1[i], s2[j]))
+      여기서 δ(a, b)는 a ≠ b일 때 1, 그렇지 않으면 0입니다.
+
+      유사도 점수 계산:
+      최대 길이 = 두 문자열 중 최대 길이
+      유사도 점수 = (1 - (Levenshtein Distance / 최대 길이)) * 100
+
+      결론: Levenshtein Distance를 사용하여 발음 유사도를 100점 만점으로 계산하고, 모든 테스트 케이스의 평균을 반올림하여 정수로 반환합니다.
+
+      예를 들어:
+      
+      ###
+      input이 
+      1. <첫 번째 단어>, <두 번째 단어>
+      2. <첫 번째 단어>, <두 번째 단어>
+      3. <첫 번째 단어>, <두 번째 단어>
+      4. <첫 번째 단어>, <두 번째 단어>
+      5. <첫 번째 단어>, <두 번째 단어>
+      
+      output이
+      점수
