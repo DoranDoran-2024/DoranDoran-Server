@@ -31,7 +31,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseDto<UserResponse> getUserInfo(@PathVariable String username) {
-        User user = userService.findByUsername(username);
+        User user = userService.getUserByUsername(username);
         return ResponseDto.onSuccess(UserMapper.toUserResponse(user));
     }
 
