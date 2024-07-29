@@ -14,6 +14,5 @@ public class ChatCompletionProperties {
     private String apiKey;
     private String apigwKey;
     private String requestId;
-    private String prompt;
 
 }
