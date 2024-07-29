@@ -1,0 +1,16 @@
+services:
+  application:
+    image: dorandoran.kr.ncr.ntruss.com/dorandoran/dorandoran:latest
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - application
