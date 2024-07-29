@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id 'com.google.cloud.tools.jib' version '3.4.0'
 }
 
 group = 'com.sash'
@@ -32,8 +33,31 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jib {
+	from {
+		image = "openjdk:17-jdk-slim"
+		platforms {
+			platform {
+				architecture = "amd64"
+				os = "linux"
+			}
+		}
+	}
+	to {
+		image = "dorandoran.kr.ncr.ntruss.com/dorandoran/dorandoran:latest"
+	}
+	container {
+		creationTime = "USE_CURRENT_TIMESTAMP"
+		jvmFlags = ['-Dspring.profiles.active=dev', '-XX:+UseContainerSupport']
+		ports = ['8080']
+	}
 }
