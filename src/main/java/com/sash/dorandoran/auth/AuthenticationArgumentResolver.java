@@ -3,8 +3,8 @@ package com.sash.dorandoran.auth;
 import com.sash.dorandoran.common.exception.GeneralException;
 import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.jwt.JwtProvider;
+import com.sash.dorandoran.user.dao.UserRepository;
 import com.sash.dorandoran.user.domain.User;
-import com.sash.dorandoran.user.implement.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
@@ -22,7 +22,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class AuthenticationArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final JwtProvider jwtProvider;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -47,6 +47,7 @@ public class AuthenticationArgumentResolver implements HandlerMethodArgumentReso
         }
 
         String id = jwtProvider.getAuthentication(token).getName();
-        return userService.findById(Long.valueOf(id));
+        return userRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
     }
 }
