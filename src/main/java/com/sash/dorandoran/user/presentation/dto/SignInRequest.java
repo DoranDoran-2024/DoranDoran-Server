@@ -5,15 +5,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-public class UserRequest {
+public class SignInRequest {
 
     @Schema(example = "test@example.com")
     private String email;
 
     @Schema(example = "DEFAULT")
     private AuthProvider authProvider;
-
-    @Schema(example = "도란도란")
-    private String nickname;
 
 }

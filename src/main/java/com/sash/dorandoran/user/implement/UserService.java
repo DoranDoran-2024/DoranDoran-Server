@@ -8,7 +8,8 @@ import com.sash.dorandoran.user.dao.UserRepository;
 import com.sash.dorandoran.user.domain.Role;
 import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.domain.UserLevel;
-import com.sash.dorandoran.user.presentation.dto.UserRequest;
+import com.sash.dorandoran.user.presentation.dto.SignInRequest;
+import com.sash.dorandoran.user.presentation.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ public class UserService {
     private final NicknameGenerator nicknameGenerator;
 
     @Transactional
-    public JwtResponse signUp(UserRequest request) {
+    public JwtResponse signUp(SignUpRequest request) {
         if (userRepository.findByAuthProviderAndEmail(request.getAuthProvider(), request.getEmail()).isPresent()) {
             throw new GeneralException(ErrorStatus.USERNAME_DUPLICATED);
         }
@@ -32,13 +33,13 @@ public class UserService {
     }
 
     @Transactional
-    public JwtResponse signIn(UserRequest request) {
+    public JwtResponse signIn(SignInRequest request) {
         User user = userRepository.findByAuthProviderAndEmail(request.getAuthProvider(), request.getEmail())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
         return jwtProvider.generateToken(user);
     }
 
-    private User buildUser(UserRequest request) {
+    private User buildUser(SignUpRequest request) {
         String nickname = request.getNickname();
         if (nickname == null || nickname.trim().isEmpty()) {
             nickname = nicknameGenerator.generateNickname();
@@ -53,8 +54,4 @@ public class UserService {
                 .build();
     }
 
-    public User findById(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
-    }
 }
