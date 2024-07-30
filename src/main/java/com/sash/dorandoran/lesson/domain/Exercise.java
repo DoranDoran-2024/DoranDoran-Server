@@ -3,6 +3,7 @@ package com.sash.dorandoran.lesson.domain;
 import com.sash.dorandoran.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,13 @@ public class Exercise extends BaseTimeEntity {
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
+    @Builder
+    public Exercise(String exerciseText, String answerText, String answerAudioUrl, String feedback, int score, Lesson lesson) {
+        this.exerciseText = exerciseText;
+        this.answerText = answerText;
+        this.answerAudioUrl = answerAudioUrl;
+        this.feedback = feedback;
+        this.score = score;
+        this.lesson = lesson;
+    }
 }
