@@ -31,7 +31,7 @@ public class KakaoLoginService {
     @Transactional
     public JwtResponse kakaoLogin(JwtRequest request) {
         KakaoUserResponse.KakaoAccount profile = requestProfile(request.getAccessToken());
-        Optional<User> optionalUser = userRepository.findByAuthProviderAndEmail(AuthProvider.NAVER, profile.getEmail());
+        Optional<User> optionalUser = userRepository.findByAuthProviderAndEmail(AuthProvider.KAKAO, profile.getEmail());
         User user = optionalUser.orElseGet(() -> userRepository.save(buildUser(profile)));
         return jwtProvider.generateToken(user);
     }
