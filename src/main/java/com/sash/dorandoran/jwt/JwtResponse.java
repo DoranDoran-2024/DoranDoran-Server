@@ -16,7 +16,4 @@ public class JwtResponse {
     @Schema(example = "eyJhbGciOiJIUzI1NiJ9.eyJzdW...")
     private String accessToken;
 
-    @Schema(example = "eyJhbGciOiJIUzI1NiJ9.eyJzdW...")
-    private String refreshToken;
-
 }
