@@ -7,21 +7,26 @@ import com.sash.dorandoran.question.dao.QuestionRepository;
 import com.sash.dorandoran.question.domain.Question;
 import com.sash.dorandoran.question.presentation.dto.UserAnswerRequest;
 import com.sash.dorandoran.question.presentation.dto.UserLevelResponse;
+import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.domain.UserLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class UserAnswerService {
 
     private final QuestionRepository questionRepository;
 
-    public UserLevelResponse calculateScoreAndDeterminelevel(List<UserAnswerRequest> request) {
+    @Transactional
+    public UserLevelResponse calculateScoreAndDetermineLevel(User user, List<UserAnswerRequest> request) {
         int score = calculateScore(request);
         UserLevel level = determineUserLevel(score);
+        user.setLevel(level);
         return QuestionMapper.toUserLevelResponse(score, level);
     }
 

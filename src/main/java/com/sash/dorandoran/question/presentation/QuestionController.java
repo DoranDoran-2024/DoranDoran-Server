@@ -1,11 +1,13 @@
 package com.sash.dorandoran.question.presentation;
 
+import com.sash.dorandoran.auth.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.question.implement.QuestionService;
 import com.sash.dorandoran.question.implement.UserAnswerService;
 import com.sash.dorandoran.question.presentation.dto.QuestionResponse;
 import com.sash.dorandoran.question.presentation.dto.UserAnswerRequest;
 import com.sash.dorandoran.question.presentation.dto.UserLevelResponse;
+import com.sash.dorandoran.user.domain.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +28,9 @@ public class QuestionController {
         return ResponseDto.onSuccess(questionService.getQuestions());
     }
 
-    @PostMapping("/submit")
-    public ResponseDto<UserLevelResponse> submitAnswers(@RequestBody List<UserAnswerRequest> request) {
-        return ResponseDto.onSuccess(userAnswerService.calculateScoreAndDeterminelevel(request));
+    @PostMapping("/answers")
+    public ResponseDto<UserLevelResponse> submitAnswers(@AuthUser User user, @RequestBody List<UserAnswerRequest> request) {
+        return ResponseDto.onSuccess(userAnswerService.calculateScoreAndDetermineLevel(user, request));
     }
 
 }

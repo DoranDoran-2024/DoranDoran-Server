@@ -2,10 +2,7 @@ package com.sash.dorandoran.user.domain;
 
 import com.sash.dorandoran.common.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +23,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
 
+    @Setter
     @Column(name = "level", length = 10)
     @Enumerated(EnumType.STRING)
     private UserLevel level;
