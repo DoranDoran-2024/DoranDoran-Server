@@ -9,8 +9,11 @@ public class UserResponse {
 
     private UserLevel level;
 
+    private String nickname;
+
     @Builder
-    public UserResponse(UserLevel level) {
+    public UserResponse(UserLevel level, String nickname) {
         this.level = level;
+        this.nickname = nickname;
     }
 }

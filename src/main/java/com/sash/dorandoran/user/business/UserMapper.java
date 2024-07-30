@@ -8,6 +8,7 @@ public class UserMapper {
     public static UserResponse toUserResponse(User user) {
         return UserResponse.builder()
                 .level(user.getLevel())
+                .nickname(user.getNickname())
                 .build();
     }
 

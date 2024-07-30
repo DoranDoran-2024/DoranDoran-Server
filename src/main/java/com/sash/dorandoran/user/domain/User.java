@@ -32,14 +32,17 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     private String email;
 
+    private String nickname;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public User(AuthProvider authProvider, UserLevel level, String email, Role role) {
+    public User(AuthProvider authProvider, UserLevel level, String email, String nickname, Role role) {
         this.authProvider = authProvider;
         this.level = level;
         this.email = email;
+        this.nickname = nickname;
         this.role = role;
     }
 

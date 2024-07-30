@@ -13,4 +13,7 @@ public class UserRequest {
     @Schema(example = "DEFAULT")
     private AuthProvider authProvider;
 
+    @Schema(example = "도란도란")
+    private String nickname;
+
 }
