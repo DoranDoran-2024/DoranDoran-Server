@@ -29,10 +29,10 @@ public class UserController {
         return ResponseDto.onSuccess(userService.signIn(request));
     }
 
-    @GetMapping("/{username}")
-    public ResponseDto<UserResponse> getUserInfo(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        return ResponseDto.onSuccess(UserMapper.toUserResponse(user));
-    }
+//    @GetMapping("/{username}")
+//    public ResponseDto<UserResponse> getUserInfo(@PathVariable String username) {
+//        User user = userService.getUserByUsername(username);
+//        return ResponseDto.onSuccess(UserMapper.toUserResponse(user));
+//    }
 
 }

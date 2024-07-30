@@ -23,7 +23,7 @@ public class UserService {
 
     @Transactional
     public JwtResponse signUp(UserRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.findByAuthProviderAndEmail(request.getAuthProvider(), request.getEmail()).isPresent()) {
             throw new GeneralException(ErrorStatus.USERNAME_DUPLICATED);
         }
         User user = userRepository.save(buildUser(request));
@@ -32,15 +32,15 @@ public class UserService {
 
     @Transactional
     public JwtResponse signIn(UserRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByAuthProviderAndEmail(request.getAuthProvider(), request.getEmail())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
         return jwtProvider.generateToken(user);
     }
 
-    public User getUserByUsername(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
-    }
+//    public User getUserByUsername(String email) {
+//        return userRepository.findByAuthProviderAndEmail(email)
+//                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
+//    }
 
     private User buildUser(UserRequest request) {
         return User.builder()
