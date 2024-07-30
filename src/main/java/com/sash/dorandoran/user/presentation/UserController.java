@@ -1,10 +1,11 @@
 package com.sash.dorandoran.user.presentation;
 
+import com.sash.dorandoran.auth.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtResponse;
 import com.sash.dorandoran.user.business.UserMapper;
-import com.sash.dorandoran.user.implement.UserService;
 import com.sash.dorandoran.user.domain.User;
+import com.sash.dorandoran.user.implement.UserService;
 import com.sash.dorandoran.user.presentation.dto.UserRequest;
 import com.sash.dorandoran.user.presentation.dto.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,10 +30,9 @@ public class UserController {
         return ResponseDto.onSuccess(userService.signIn(request));
     }
 
-//    @GetMapping("/{username}")
-//    public ResponseDto<UserResponse> getUserInfo(@PathVariable String username) {
-//        User user = userService.getUserByUsername(username);
-//        return ResponseDto.onSuccess(UserMapper.toUserResponse(user));
-//    }
+    @GetMapping("/info")
+    public ResponseDto<UserResponse> getUserInfo(@AuthUser User user) {
+        return ResponseDto.onSuccess(UserMapper.toUserResponse(user));
+    }
 
 }

@@ -50,4 +50,9 @@ public class UserService {
                 .role(Role.MEMBER)
                 .build();
     }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
+    }
 }
