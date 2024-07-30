@@ -16,6 +16,24 @@ clova:
     api-key: ${CLOVA_CHAT_COMPLETION_API_KEY}
     apigw-key: ${CLOVA_CHAT_COMPLETION_APIGW_KEY}
     request-id: ${CLOVA_CHAT_COMPLETION_REQUEST_ID}
+  api:
+    client-id: ${CLOVA_API_CLIENT_ID}
+    client-secret: ${CLOVA_API_CLIENT_SECRET}
+
+cloud:
+  aws:
+    s3:
+      endpoint: https://kr.object.ncloudstorage.com
+    credentials:
+      access-key: ${NCP_ACCESS_KEY}
+      secret-key: ${NCP_SECRET_KEY}
+      bucket: ${NCP_BUCKET_NAME}
+    region:
+      static: ap-southeast-2
+      auto: false
+    stack:
+      auto: false
+
 
 pronunciation-similarity-prompt: |
   1. 1번부터 n번까지 입력한 두 단어의 형태소를 분해하여 비교합니다.
