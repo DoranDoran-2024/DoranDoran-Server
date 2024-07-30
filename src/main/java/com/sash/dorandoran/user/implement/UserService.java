@@ -41,7 +41,7 @@ public class UserService {
     private User buildUser(UserRequest request) {
         String nickname = request.getNickname();
         if (nickname == null || nickname.trim().isEmpty()) {
-            nickname = nicknameGenerator.getOneRandomNickName();
+            nickname = nicknameGenerator.generateNickname();
         }
 
         return User.builder()
