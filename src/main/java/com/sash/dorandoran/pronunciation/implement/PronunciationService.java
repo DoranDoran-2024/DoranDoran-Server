@@ -56,8 +56,6 @@ public class PronunciationService {
                 .seed(0)
                 .build();
 
-        log.info("chatCompletionRequest = {}", chatCompletionRequest);
-
         return Integer.parseInt(clovaStudioClient.getChatCompletion(
                 chatCompletionProperties.getApiKey(),
                 chatCompletionProperties.getApigwKey(),

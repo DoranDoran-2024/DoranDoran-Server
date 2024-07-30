@@ -1,4 +1,4 @@
-package com.sash.dorandoran.auth.presentation;
+package com.sash.dorandoran.auth.implement;
 
 import com.sash.dorandoran.feign.client.NaverRequestTokenClient;
 import com.sash.dorandoran.feign.client.NaverUserInfoClient;

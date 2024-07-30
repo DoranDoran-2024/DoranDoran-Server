@@ -1,6 +1,6 @@
 package com.sash.dorandoran.user.implement;
 
-import com.sash.dorandoran.auth.presentation.NaverLoginService;
+import com.sash.dorandoran.auth.implement.NaverLoginService;
 import com.sash.dorandoran.common.exception.GeneralException;
 import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.jwt.JwtProvider;
@@ -23,8 +23,6 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-
-    private final NaverLoginService naverLoginService;
 
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;

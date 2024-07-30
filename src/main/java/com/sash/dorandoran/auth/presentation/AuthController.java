@@ -1,6 +1,6 @@
-package com.sash.dorandoran.auth;
+package com.sash.dorandoran.auth.presentation;
 
-import com.sash.dorandoran.auth.presentation.NaverLoginService;
+import com.sash.dorandoran.auth.implement.NaverLoginService;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.jwt.JwtResponse;
