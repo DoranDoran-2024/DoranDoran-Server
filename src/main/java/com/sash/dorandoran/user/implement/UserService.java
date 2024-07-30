@@ -10,7 +10,6 @@ import com.sash.dorandoran.user.domain.Attendance;
 import com.sash.dorandoran.user.domain.Role;
 import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.domain.UserLevel;
-import com.sash.dorandoran.user.presentation.dto.AttendanceResponse;
 import com.sash.dorandoran.user.presentation.dto.SignInRequest;
 import com.sash.dorandoran.user.presentation.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Transactional(readOnly = true)
@@ -61,7 +59,7 @@ public class UserService {
         }
     }
 
-    public AttendanceResponse getAttendanceStatus(User user) {
+    public List<Boolean> getAttendanceStatus(User user) {
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
         LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
@@ -71,13 +69,9 @@ public class UserService {
                 .map(Attendance::getDate)
                 .toList();
 
-        List<Boolean> attendanceDays = IntStream.range(0, 7)
+        return IntStream.range(0, 7)
                 .mapToObj(i -> attendedDates.contains(startOfWeek.plusDays(i)))
-                .collect(Collectors.toList());
-
-        return AttendanceResponse.builder()
-                .attendanceDays(attendanceDays)
-                .build();
+                .toList();
     }
 
     private User buildUser(SignUpRequest request) {
