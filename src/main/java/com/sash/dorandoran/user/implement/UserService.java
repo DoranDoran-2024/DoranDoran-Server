@@ -1,6 +1,6 @@
 package com.sash.dorandoran.user.implement;
 
-import com.sash.dorandoran.auth.presentation.NaverLoginService;
+import com.sash.dorandoran.auth.implement.NaverLoginService;
 import com.sash.dorandoran.common.exception.GeneralException;
 import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.jwt.JwtProvider;
