@@ -5,6 +5,7 @@ import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtResponse;
 import com.sash.dorandoran.user.business.UserMapper;
 import com.sash.dorandoran.user.domain.User;
+import com.sash.dorandoran.user.implement.KakaoLoginService;
 import com.sash.dorandoran.user.implement.NaverLoginService;
 import com.sash.dorandoran.user.implement.UserService;
 import com.sash.dorandoran.user.presentation.dto.SignInRequest;
@@ -24,6 +25,7 @@ public class UserController {
 
     private final UserService userService;
     private final NaverLoginService naverLoginService;
+    private final KakaoLoginService kakaoLoginService;
 
     @PostMapping("/sign-up")
     public ResponseDto<JwtResponse> signUp(@RequestBody SignUpRequest request) {
@@ -50,6 +52,11 @@ public class UserController {
     @PostMapping("/login/naver")
     public ResponseDto<JwtResponse> naverLogin(@RequestParam String accessToken) {
         return ResponseDto.onSuccess(naverLoginService.naverLogin(accessToken));
+    }
+
+    @PostMapping("/login/kakao")
+    public ResponseDto<JwtResponse> kakaoLogin(@RequestParam String accessToken) {
+        return ResponseDto.onSuccess(kakaoLoginService.kakaoLogin(accessToken));
     }
 
 }
