@@ -8,6 +8,7 @@ import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.implement.KakaoLoginService;
 import com.sash.dorandoran.user.implement.NaverLoginService;
 import com.sash.dorandoran.user.implement.UserService;
+import com.sash.dorandoran.user.presentation.dto.JwtRequest;
 import com.sash.dorandoran.user.presentation.dto.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -38,13 +39,13 @@ public class UserController {
     }
 
     @PostMapping("/login/naver")
-    public ResponseDto<JwtResponse> naverLogin(@RequestParam String accessToken) {
-        return ResponseDto.onSuccess(naverLoginService.naverLogin(accessToken));
+    public ResponseDto<JwtResponse> naverLogin(@RequestBody JwtRequest request) {
+        return ResponseDto.onSuccess(naverLoginService.naverLogin(request));
     }
 
     @PostMapping("/login/kakao")
-    public ResponseDto<JwtResponse> kakaoLogin(@RequestParam String accessToken) {
-        return ResponseDto.onSuccess(kakaoLoginService.kakaoLogin(accessToken));
+    public ResponseDto<JwtResponse> kakaoLogin(@RequestBody JwtRequest request) {
+        return ResponseDto.onSuccess(kakaoLoginService.kakaoLogin(request));
     }
 
 }

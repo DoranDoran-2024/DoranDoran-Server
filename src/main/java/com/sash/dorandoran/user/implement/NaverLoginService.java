@@ -9,6 +9,7 @@ import com.sash.dorandoran.user.domain.AuthProvider;
 import com.sash.dorandoran.user.domain.Role;
 import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.domain.UserLevel;
+import com.sash.dorandoran.user.presentation.dto.JwtRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class NaverLoginService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public JwtResponse naverLogin(String accessToken) {
-        NaverUserResponse.NaverUserDetail profile = requestProfile(accessToken);
+    public JwtResponse naverLogin(JwtRequest request) {
+        NaverUserResponse.NaverUserDetail profile = requestProfile(request.getAccessToken());
         Optional<User> optionalUser = userRepository.findByAuthProviderAndEmail(AuthProvider.NAVER, profile.getEmail());
         User user = optionalUser.orElseGet(() -> userRepository.save(buildUser(profile)));
         return jwtProvider.generateToken(user);
