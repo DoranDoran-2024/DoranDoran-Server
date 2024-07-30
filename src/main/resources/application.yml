@@ -11,6 +11,16 @@ spring:
         default_batch_fetch_size: 100
         dialect: org.hibernate.dialect.MySQLDialect
 
+naver:
+  base-url: https://nid.naver.com
+
+  client-id: ${NAVER_CLIENT_ID}
+  client-secret: ${NAVER_CLIENT_SECRET}
+  redirect-uri: ${NAVER_REDIRECT_URI}
+  request-token-uri: ${NAVER_REQUEST_TOKEN_URI}
+  user-info-uri: ${NAVER_USER_INFO_URI}
+
+
 clova:
   chat-completion:
     api-key: ${CLOVA_CHAT_COMPLETION_API_KEY}

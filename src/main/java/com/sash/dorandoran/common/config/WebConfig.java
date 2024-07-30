@@ -1,6 +1,6 @@
 package com.sash.dorandoran.common.config;
 
-import com.sash.dorandoran.auth.AuthenticationArgumentResolver;
+import com.sash.dorandoran.common.annotation.AuthenticationArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

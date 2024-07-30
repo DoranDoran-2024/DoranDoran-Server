@@ -1,6 +1,6 @@
 package com.sash.dorandoran.question.presentation;
 
-import com.sash.dorandoran.auth.AuthUser;
+import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.question.implement.QuestionService;
 import com.sash.dorandoran.question.implement.UserAnswerService;

@@ -1,15 +1,13 @@
 package com.sash.dorandoran.user.implement;
 
+import com.sash.dorandoran.auth.presentation.NaverLoginService;
 import com.sash.dorandoran.common.exception.GeneralException;
 import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.jwt.JwtResponse;
 import com.sash.dorandoran.user.dao.AttendanceRepository;
 import com.sash.dorandoran.user.dao.UserRepository;
-import com.sash.dorandoran.user.domain.Attendance;
-import com.sash.dorandoran.user.domain.Role;
-import com.sash.dorandoran.user.domain.User;
-import com.sash.dorandoran.user.domain.UserLevel;
+import com.sash.dorandoran.user.domain.*;
 import com.sash.dorandoran.user.presentation.dto.SignInRequest;
 import com.sash.dorandoran.user.presentation.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,8 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 @Service
 public class UserService {
+
+    private final NaverLoginService naverLoginService;
 
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
