@@ -24,8 +24,6 @@ import java.util.stream.IntStream;
 @Service
 public class UserService {
 
-    private final NaverLoginService naverLoginService;
-
     private final UserRepository userRepository;
     private final AttendanceRepository attendanceRepository;
     private final JwtProvider jwtProvider;
