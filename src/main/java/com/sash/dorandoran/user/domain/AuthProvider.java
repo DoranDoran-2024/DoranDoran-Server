@@ -2,6 +2,6 @@ package com.sash.dorandoran.user.domain;
 
 public enum AuthProvider {
 
-    NAVER, DEFAULT
+    NAVER, KAKAO, DEFAULT
 
 }
