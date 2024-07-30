@@ -1,4 +1,4 @@
-package com.sash.dorandoran.auth;
+package com.sash.dorandoran.common.annotation;
 
 import com.sash.dorandoran.common.exception.GeneralException;
 import com.sash.dorandoran.common.response.status.ErrorStatus;

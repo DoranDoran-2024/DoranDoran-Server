@@ -1,6 +1,6 @@
 package com.sash.dorandoran.user.presentation;
 
-import com.sash.dorandoran.auth.AuthUser;
+import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtResponse;
 import com.sash.dorandoran.user.business.UserMapper;

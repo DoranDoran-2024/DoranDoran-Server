@@ -1,4 +1,4 @@
-package com.sash.dorandoran.auth;
+package com.sash.dorandoran.common.annotation;
 
 import io.swagger.v3.oas.annotations.Parameter;
 
