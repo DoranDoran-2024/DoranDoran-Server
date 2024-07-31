@@ -25,7 +25,7 @@ public class FeedbackMapper {
             log.error("Failed to parse feedback response", e);
             return FeedbackResponse.builder()
                     .score(0)
-                    .feedback("올바른 문장을 입력해주세요!")
+                    .feedback("올바른 문장을 입력해 주세요!")
                     .grading(List.of())
                     .build();
         }

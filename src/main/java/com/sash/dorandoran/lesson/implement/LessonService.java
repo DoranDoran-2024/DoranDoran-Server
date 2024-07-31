@@ -37,12 +37,13 @@ public class LessonService {
     public ExerciseListResponse createLesson(User user, LessonRequest request) {
         Lesson lesson = buildLesson(user, request.getSituation());
         lessonRepository.save(lesson);
+        List<Exercise> exercises = new ArrayList<>();
         List<String> exerciseTexts = createExercises(user.getLevel().getLevelName(), request.getSituation());
         for (String exerciseText: exerciseTexts) {
             Exercise exercise = buildExercise(lesson, exerciseText);
-            exerciseRepository.save(exercise);
+            exercises.add(exerciseRepository.save(exercise));
         }
-        return ExerciseMapper.toExerciseListResponse(lesson.getId(), exerciseTexts);
+        return ExerciseMapper.toExerciseListResponse(lesson.getId(), exercises);
     }
 
     private Lesson buildLesson(User user, String situation) {
