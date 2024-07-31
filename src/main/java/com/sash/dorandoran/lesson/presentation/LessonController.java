@@ -9,6 +9,7 @@ import com.sash.dorandoran.lesson.presentation.dto.FeedbackRequest;
 import com.sash.dorandoran.lesson.presentation.dto.FeedbackResponse;
 import com.sash.dorandoran.lesson.presentation.dto.LessonRequest;
 import com.sash.dorandoran.user.domain.User;
+import com.sash.dorandoran.voice.implement.ClovaVoiceService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class LessonController {
 
     private final LessonService lessonService;
     private final FeedbackService feedbackService;
+    private final ClovaVoiceService clovaVoiceService;
 
     @PostMapping
     public ResponseDto<ExerciseListResponse> createLesson(@AuthUser User user, @RequestBody LessonRequest request) {
@@ -32,4 +34,8 @@ public class LessonController {
         return ResponseDto.onSuccess(feedbackService.createFeedback(user, exerciseId, request));
     }
 
+    @PostMapping("/exercises/{exerciseId}/voices")
+    public ResponseDto<String> synthesizeAndUpload(@AuthUser User user, @PathVariable Long exerciseId) {
+        return ResponseDto.onSuccess(clovaVoiceService.synthesizeSpeechAndUpload(exerciseId));
+    }
 }
