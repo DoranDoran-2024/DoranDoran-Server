@@ -12,7 +12,7 @@ public class ExerciseMapper {
     public static ExerciseSummaryResponse toExerciseSummaryResponse(Exercise exercise) {
         return ExerciseSummaryResponse.builder()
                 .exerciseId(exercise.getId())
-                .exerciseText(exercise.getExerciseText())
+                .correctText(exercise.getCorrectText())
                 .build();
     }
 

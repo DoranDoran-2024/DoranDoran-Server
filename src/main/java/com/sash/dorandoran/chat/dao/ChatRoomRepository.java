@@ -9,5 +9,5 @@ import java.util.List;
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
     List<ChatRoom> findByUserOrderByCreatedAtDesc(User user);
-
+  
 }

@@ -21,7 +21,7 @@ public class LessonMapper {
                 .filter(exercise -> exercise.getScore() < 100)
                 .map(exercise -> ExerciseSummaryResponse.builder()
                         .exerciseId(exercise.getId())
-                        .exerciseText(exercise.getExerciseText())
+                        .correctText(exercise.getCorrectText())
                         .build())
                 .collect(Collectors.toList());
 

@@ -18,8 +18,8 @@ public class Exercise extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String exerciseText;
-    private String answerText;
+    private String correctText;
+    private String speechText;
     private String answerAudioUrl;
     private String feedback;
     private int score;
@@ -32,9 +32,9 @@ public class Exercise extends BaseTimeEntity {
     private Lesson lesson;
 
     @Builder
-    public Exercise(String exerciseText, String answerText, String answerAudioUrl, String feedback, int score, Lesson lesson, List<Grading> grading) {
-        this.exerciseText = exerciseText;
-        this.answerText = answerText;
+    public Exercise(String correctText, String speechText, String answerAudioUrl, String feedback, int score, Lesson lesson, List<Grading> grading) {
+        this.correctText = correctText;
+        this.speechText = speechText;
         this.answerAudioUrl = answerAudioUrl;
         this.feedback = feedback;
         this.score = score;
@@ -46,8 +46,8 @@ public class Exercise extends BaseTimeEntity {
         this.answerAudioUrl = audioUrl;
     }
 
-    public void updateFeedbackInfo(String answerText, String feedback, int score) {
-        this.answerText = answerText;
+    public void updateFeedbackInfo(String sppechText, String feedback, int score) {
+        this.speechText = sppechText;
         this.feedback = feedback;
         this.score = score;
     }

@@ -13,6 +13,8 @@ import java.util.List;
 @Builder
 public class FeedbackResponse {
 
+    private String speechText;
+    private String correctText;
     private int score;
     private String feedback;
     private List<GradingResponse> grading;
