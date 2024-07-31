@@ -9,6 +9,7 @@ import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.implement.KakaoLoginService;
 import com.sash.dorandoran.user.implement.NaverLoginService;
 import com.sash.dorandoran.user.implement.UserService;
+import com.sash.dorandoran.user.presentation.dto.DiarySummaryListResponse;
 import com.sash.dorandoran.user.presentation.dto.JwtRequest;
 import com.sash.dorandoran.user.presentation.dto.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,6 +54,11 @@ public class UserController {
     @GetMapping("/test")
     public ResponseDto<JwtResponse> generateTestToken(@RequestParam Long userId) {
         return ResponseDto.onSuccess(jwtProvider.generateToken(userService.getUser(userId)));
+    }
+
+    @GetMapping("/diaries")
+    public ResponseDto<DiarySummaryListResponse> getDiaries(@AuthUser User user) {
+        return ResponseDto.onSuccess(userService.getDiaries(user));
     }
 
 }

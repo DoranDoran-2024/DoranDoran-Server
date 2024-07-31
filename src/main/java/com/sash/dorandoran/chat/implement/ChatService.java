@@ -37,10 +37,9 @@ public class ChatService {
     private String chatSummaryPrompt;
 
     @Transactional
-    public boolean createChatRoom(User user) {
+    public ChatRoom createChatRoom(User user) {
         ChatRoom chatRoom = buildChatRoom(user);
-        chatRoomRepository.save(chatRoom);
-        return true;
+        return chatRoomRepository.save(chatRoom);
     }
 
     private ChatRoom buildChatRoom(User user) {

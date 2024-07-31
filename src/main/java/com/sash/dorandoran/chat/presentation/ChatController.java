@@ -19,8 +19,8 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping
-    public ResponseDto<Boolean> createChatRoom(@AuthUser User user) {
-        return ResponseDto.onSuccess(chatService.createChatRoom(user));
+    public ResponseDto<Long> createChatRoom(@AuthUser User user) {
+        return ResponseDto.onSuccess(chatService.createChatRoom(user).getId());
     }
 
     @PostMapping("/{chatRoomId}")
