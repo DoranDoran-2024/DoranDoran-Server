@@ -10,6 +10,7 @@ public class ScrapMapper {
         return ScrapSummaryResponse.builder()
                 .scrapId(scrap.getId())
                 .exercise(ExerciseMapper.toExerciseSummaryResponse(scrap.getExercise()))
+                .bigTopic(scrap.getExercise().getLesson().getSituation())
                 .build();
     }
 }

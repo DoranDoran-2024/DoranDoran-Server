@@ -4,6 +4,8 @@ import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.jwt.JwtResponse;
+import com.sash.dorandoran.scrap.implement.ScrapService;
+import com.sash.dorandoran.scrap.presentation.dto.ScrapSummaryResponse;
 import com.sash.dorandoran.user.business.UserMapper;
 import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.implement.KakaoLoginService;
@@ -25,6 +27,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final ScrapService scrapService;
     private final NaverLoginService naverLoginService;
     private final KakaoLoginService kakaoLoginService;
     private final JwtProvider jwtProvider;
@@ -59,6 +62,11 @@ public class UserController {
     @GetMapping("/diaries")
     public ResponseDto<DiarySummaryListResponse> getDiaries(@AuthUser User user) {
         return ResponseDto.onSuccess(userService.getDiaries(user));
+    }
+
+    @GetMapping("/scraps")
+    public ResponseDto<List<ScrapSummaryResponse>> getScraps(@AuthUser User user) {
+        return ResponseDto.onSuccess(scrapService.getScraps(user));
     }
 
 }

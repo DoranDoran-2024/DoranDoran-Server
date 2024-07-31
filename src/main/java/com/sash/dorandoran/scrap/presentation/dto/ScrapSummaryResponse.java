@@ -14,5 +14,6 @@ public class ScrapSummaryResponse {
     
     private Long scrapId;
     private ExerciseSummaryResponse exercise;
+    private String bigTopic;
     
 }
