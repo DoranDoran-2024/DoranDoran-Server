@@ -80,11 +80,19 @@ public class UserController {
         return ResponseDto.onSuccess(jwtProvider.generateToken(userService.getUser(userId)));
     }
 
+    @Operation(
+            summary = "🔑 [내정보] 사용자 일기 목록 조회",
+            description = "사용자의 일기 목록을 조회합니다."
+    )
     @GetMapping("/diaries")
     public ResponseDto<DiarySummaryListResponse> getDiaries(@AuthUser User user) {
         return ResponseDto.onSuccess(userService.getDiaries(user));
     }
 
+    @Operation(
+            summary = "🔑 [내정보] 사용자 학습 기록 조회",
+            description = "사용자의 학습 기록을 조회합니다."
+    )
     @GetMapping("/scraps")
     public ResponseDto<List<ScrapSummaryResponse>> getScraps(@AuthUser User user) {
         return ResponseDto.onSuccess(scrapService.getScraps(user));
