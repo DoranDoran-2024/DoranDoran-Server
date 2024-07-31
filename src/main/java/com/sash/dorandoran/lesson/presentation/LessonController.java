@@ -2,14 +2,11 @@ package com.sash.dorandoran.lesson.presentation;
 
 import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
+import com.sash.dorandoran.lesson.implement.ClovaVoiceService;
 import com.sash.dorandoran.lesson.implement.FeedbackService;
 import com.sash.dorandoran.lesson.implement.LessonService;
-import com.sash.dorandoran.lesson.presentation.dto.ExerciseListResponse;
-import com.sash.dorandoran.lesson.presentation.dto.FeedbackRequest;
-import com.sash.dorandoran.lesson.presentation.dto.FeedbackResponse;
-import com.sash.dorandoran.lesson.presentation.dto.LessonRequest;
+import com.sash.dorandoran.lesson.presentation.dto.*;
 import com.sash.dorandoran.user.domain.User;
-import com.sash.dorandoran.voice.implement.ClovaVoiceService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +24,11 @@ public class LessonController {
     @PostMapping
     public ResponseDto<ExerciseListResponse> createLesson(@AuthUser User user, @RequestBody LessonRequest request) {
         return ResponseDto.onSuccess(lessonService.createLesson(user, request));
+    }
+
+    @GetMapping("/{lessonId}")
+    public ResponseDto<LessonResponse> getLesson(@AuthUser User user, @PathVariable Long lessonId) {
+        return ResponseDto.onSuccess(lessonService.getLesson(user, lessonId));
     }
 
     @PostMapping("/exercises/{exerciseId}")

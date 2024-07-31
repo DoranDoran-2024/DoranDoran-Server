@@ -1,15 +1,19 @@
 package com.sash.dorandoran.lesson.implement;
 
+import com.sash.dorandoran.common.exception.GeneralException;
+import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.feign.client.ClovaStudioClient;
 import com.sash.dorandoran.feign.dto.ChatCompletionRequest;
 import com.sash.dorandoran.feign.properties.ChatCompletionProperties;
 import com.sash.dorandoran.lesson.business.ExerciseMapper;
+import com.sash.dorandoran.lesson.business.LessonMapper;
 import com.sash.dorandoran.lesson.dao.ExerciseRepository;
 import com.sash.dorandoran.lesson.dao.LessonRepository;
 import com.sash.dorandoran.lesson.domain.Exercise;
 import com.sash.dorandoran.lesson.domain.Lesson;
 import com.sash.dorandoran.lesson.presentation.dto.ExerciseListResponse;
 import com.sash.dorandoran.lesson.presentation.dto.LessonRequest;
+import com.sash.dorandoran.lesson.presentation.dto.LessonResponse;
 import com.sash.dorandoran.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,7 +43,7 @@ public class LessonService {
         lessonRepository.save(lesson);
         List<Exercise> exercises = new ArrayList<>();
         List<String> exerciseTexts = createExercises(user.getLevel().getLevelName(), request.getSituation());
-        for (String exerciseText: exerciseTexts) {
+        for (String exerciseText : exerciseTexts) {
             Exercise exercise = buildExercise(lesson, exerciseText);
             exercises.add(exerciseRepository.save(exercise));
         }
@@ -95,4 +99,9 @@ public class LessonService {
         ).getResult().getMessage().getContent().split("/")).toList();
     }
 
+    public LessonResponse getLesson(User user, Long lessonId) {
+        return LessonMapper.toLessonResponse(lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.LESSON_NOT_FOUND)));
+
+    }
 }

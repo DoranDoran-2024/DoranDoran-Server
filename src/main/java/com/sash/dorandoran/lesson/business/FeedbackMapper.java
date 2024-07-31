@@ -19,7 +19,6 @@ public class FeedbackMapper {
 
         FeedbackResponse feedbackResponse = null;
         try {
-            // JSON 파싱
             feedbackResponse = objectMapper.readValue(result.getMessage().getContent(), FeedbackResponse.class);
         } catch (IOException e) {
             log.error("Failed to parse feedback response", e);
@@ -32,4 +31,5 @@ public class FeedbackMapper {
 
         return feedbackResponse;
     }
+
 }

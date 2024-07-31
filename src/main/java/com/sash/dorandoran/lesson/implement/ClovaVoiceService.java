@@ -1,4 +1,4 @@
-package com.sash.dorandoran.voice.implement;
+package com.sash.dorandoran.lesson.implement;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
