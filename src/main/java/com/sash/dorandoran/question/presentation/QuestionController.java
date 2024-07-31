@@ -25,8 +25,8 @@ public class QuestionController {
     private final UserAnswerService userAnswerService;
 
     @Operation(
-            summary = "[온보딩] 테스트 질문 4개 생성",
-            description = "온보딩에서 발음 유사성을 측정하기 위한 테스트 질문을 4개 셍성합니다."
+            summary = "[온보딩] 테스트 질문 6개 생성",
+            description = "온보딩에서 발음 유사성을 측정하기 위한 테스트 질문을 6개 생성합니다."
     )
     @GetMapping
     public ResponseDto<List<QuestionResponse>> getRandomQuestions() {
