@@ -42,7 +42,7 @@ public class ScrapService {
     }
 
     public List<ScrapSummaryResponse> getScraps(User user) {
-        return scrapRepository.findScrapsByUser(user).stream()
+        return scrapRepository.findByUserOrderByCreatedAtDesc(user).stream()
                 .map(ScrapMapper::toScrapSummaryResponse).toList();
     }
 

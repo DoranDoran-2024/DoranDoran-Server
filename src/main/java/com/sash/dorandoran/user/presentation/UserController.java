@@ -4,11 +4,14 @@ import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.jwt.JwtResponse;
+import com.sash.dorandoran.scrap.implement.ScrapService;
+import com.sash.dorandoran.scrap.presentation.dto.ScrapSummaryResponse;
 import com.sash.dorandoran.user.business.UserMapper;
 import com.sash.dorandoran.user.domain.User;
 import com.sash.dorandoran.user.implement.KakaoLoginService;
 import com.sash.dorandoran.user.implement.NaverLoginService;
 import com.sash.dorandoran.user.implement.UserService;
+import com.sash.dorandoran.user.presentation.dto.DiarySummaryListResponse;
 import com.sash.dorandoran.user.presentation.dto.JwtRequest;
 import com.sash.dorandoran.user.presentation.dto.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +28,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final ScrapService scrapService;
     private final NaverLoginService naverLoginService;
     private final KakaoLoginService kakaoLoginService;
     private final JwtProvider jwtProvider;
@@ -74,6 +78,24 @@ public class UserController {
     @GetMapping("/test")
     public ResponseDto<JwtResponse> generateTestToken(@RequestParam Long userId) {
         return ResponseDto.onSuccess(jwtProvider.generateToken(userService.getUser(userId)));
+    }
+
+    @Operation(
+            summary = "🔑 [내정보] 사용자 일기 목록 조회",
+            description = "사용자의 일기 목록을 조회합니다."
+    )
+    @GetMapping("/diaries")
+    public ResponseDto<DiarySummaryListResponse> getDiaries(@AuthUser User user) {
+        return ResponseDto.onSuccess(userService.getDiaries(user));
+    }
+
+    @Operation(
+            summary = "🔑 [내정보] 사용자 학습 기록 조회",
+            description = "사용자의 학습 기록을 조회합니다."
+    )
+    @GetMapping("/scraps")
+    public ResponseDto<List<ScrapSummaryResponse>> getScraps(@AuthUser User user) {
+        return ResponseDto.onSuccess(scrapService.getScraps(user));
     }
 
 }

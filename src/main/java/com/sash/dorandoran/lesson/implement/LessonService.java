@@ -39,10 +39,12 @@ public class LessonService {
 
     @Transactional
     public ExerciseListResponse createLesson(User user, LessonRequest request) {
-        Lesson lesson = buildLesson(user, request.getSituation());
+        Lesson lesson = buildLesson(user, request.getBigTopic());
         lessonRepository.save(lesson);
+
         List<Exercise> exercises = new ArrayList<>();
-        List<String> exerciseTexts = createExercises(user.getLevel().getLevelName(), request.getSituation());
+        String situation = request.getBigTopic() + " - " + request.getSmallTopic();
+        List<String> exerciseTexts = createExercises(user.getLevel().getLevelName(), situation);
         for (String exerciseText : exerciseTexts) {
             Exercise exercise = buildExercise(lesson, exerciseText);
             exercises.add(exerciseRepository.save(exercise));
@@ -50,9 +52,9 @@ public class LessonService {
         return ExerciseMapper.toExerciseListResponse(lesson.getId(), exercises);
     }
 
-    private Lesson buildLesson(User user, String situation) {
+    private Lesson buildLesson(User user, String bigTopic) {
         return Lesson.builder()
-                .situation(situation)
+                .situation(bigTopic)
                 .user(user)
                 .exercises(new ArrayList<>())
                 .build();

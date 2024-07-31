@@ -6,7 +6,10 @@ import lombok.Data;
 @Data
 public class LessonRequest {
 
-    @Schema(example = "음식에 대한 불만 표현하기")
-    private String situation;
+    @Schema(example = "식당")
+    private String bigTopic;
+
+    @Schema(example = "음식 주문하기")
+    private String smallTopic;
 
 }

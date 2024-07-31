@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ScrapRepository extends JpaRepository<Scrap, Long> {
 
     Optional<Scrap> findScrapByUserAndExerciseId(User user, Long exerciseId);
-    List<Scrap> findScrapsByUser(User user);
+
+    List<Scrap> findByUserOrderByCreatedAtDesc(User user);
 
 }
