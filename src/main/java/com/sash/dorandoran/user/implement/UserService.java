@@ -1,5 +1,7 @@
 package com.sash.dorandoran.user.implement;
 
+import com.sash.dorandoran.common.exception.GeneralException;
+import com.sash.dorandoran.common.response.status.ErrorStatus;
 import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.user.dao.AttendanceRepository;
 import com.sash.dorandoran.user.dao.UserRepository;
@@ -49,6 +51,11 @@ public class UserService {
         return IntStream.range(0, 7)
                 .mapToObj(i -> attendedDates.contains(startOfWeek.plusDays(i)))
                 .toList();
+    }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
     }
 
 }

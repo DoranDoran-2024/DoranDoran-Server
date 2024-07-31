@@ -2,6 +2,7 @@ package com.sash.dorandoran.user.presentation;
 
 import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
+import com.sash.dorandoran.jwt.JwtProvider;
 import com.sash.dorandoran.jwt.JwtResponse;
 import com.sash.dorandoran.user.business.UserMapper;
 import com.sash.dorandoran.user.domain.User;
@@ -25,6 +26,7 @@ public class UserController {
     private final UserService userService;
     private final NaverLoginService naverLoginService;
     private final KakaoLoginService kakaoLoginService;
+    private final JwtProvider jwtProvider;
 
     @GetMapping("/info")
     public ResponseDto<UserResponse> getUserInfo(@AuthUser User user) {
@@ -46,6 +48,11 @@ public class UserController {
     @PostMapping("/login/kakao")
     public ResponseDto<JwtResponse> kakaoLogin(@RequestBody JwtRequest request) {
         return ResponseDto.onSuccess(kakaoLoginService.kakaoLogin(request));
+    }
+
+    @GetMapping("/test")
+    public ResponseDto<JwtResponse> generateTestToken(@RequestParam Long userId) {
+        return ResponseDto.onSuccess(jwtProvider.generateToken(userService.getUser(userId)));
     }
 
 }

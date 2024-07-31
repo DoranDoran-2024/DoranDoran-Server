@@ -27,7 +27,11 @@ public enum ErrorStatus implements BaseStatus {
     // User 4100 ~ 4150
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, 4100, "존재하지 않는 회원입니다."),
     USERNAME_DUPLICATED(HttpStatus.CONFLICT, 4101, "중복된 회원 이름입니다."),
-    USER_LEVEL_OUT_OF_BOUNDS(HttpStatus.BAD_REQUEST, 4102, "유효하지 않은 점수 범위입니다.");
+    USER_LEVEL_OUT_OF_BOUNDS(HttpStatus.BAD_REQUEST, 4102, "유효하지 않은 점수 범위입니다."),
+
+    // Lesson + Exercise 4151 ~ 4200
+    EXERCISE_NOT_FOUND(HttpStatus.NOT_FOUND, 4100, "존재하지 않는 문제입니다."),
+    LESSON_NOT_FOUND(HttpStatus.NOT_FOUND, 4101, "존재하지 않는 수업입니다.");
 
     private final HttpStatus httpStatus;
     private final int code;

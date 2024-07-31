@@ -11,9 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExerciseListResponse {
+public class LessonResponse {
 
-    Long lessonId;
-    List<ExerciseSummaryResponse> exercises;
+    private int avgScore;
+    private List<FeedbackSummaryResponse> feedbacks;
+    private List<ExerciseSummaryResponse> incorrectExercises;
 
 }

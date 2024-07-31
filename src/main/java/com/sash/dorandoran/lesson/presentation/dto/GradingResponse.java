@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExerciseListResponse {
+public class GradingResponse {
 
-    Long lessonId;
-    List<ExerciseSummaryResponse> exercises;
+    private String incorrectWord;
+    private String correctWord;
 
 }

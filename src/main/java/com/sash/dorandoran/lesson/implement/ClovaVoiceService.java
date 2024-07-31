@@ -1,11 +1,17 @@
-package com.sash.dorandoran.voice.implement;
+package com.sash.dorandoran.lesson.implement;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.sash.dorandoran.common.exception.GeneralException;
+import com.sash.dorandoran.common.response.status.ErrorStatus;
+import com.sash.dorandoran.lesson.dao.ExerciseRepository;
+import com.sash.dorandoran.lesson.domain.Exercise;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,10 +19,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
 
+@RequiredArgsConstructor
 @Service
 public class ClovaVoiceService {
 
     private final AmazonS3 amazonS3;
+    private final ExerciseRepository exerciseRepository;
 
     @Value("${clova.api.client-id}")
     private String clientId;
@@ -27,13 +35,13 @@ public class ClovaVoiceService {
     @Value("${cloud.aws.credentials.bucket}")
     private String bucketName;
 
-    public ClovaVoiceService(AmazonS3 amazonS3) {
-        this.amazonS3 = amazonS3;
-    }
+    @Transactional
+    public String synthesizeSpeechAndUpload(Long exerciseId) {
+        Exercise exercise = exerciseRepository.findById(exerciseId)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.EXERCISE_NOT_FOUND));
 
-    public String synthesizeSpeechAndUpload(String speaker, String text, String format) {
         try {
-            String encodedText = URLEncoder.encode(text, "UTF-8");
+            String encodedText = URLEncoder.encode(exercise.getExerciseText(), "UTF-8");
             String apiURL = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -42,7 +50,7 @@ public class ClovaVoiceService {
             con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
 
             // post request
-            String postParams = "speaker=" + speaker + "&volume=0&speed=0&pitch=0&format=" + format + "&text=" + encodedText;
+            String postParams = "speaker=ndonghyun&volume=0&speed=0&pitch=0&format=wav&text=" + encodedText;
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(postParams);
@@ -56,7 +64,7 @@ public class ClovaVoiceService {
                 byte[] bytes = new byte[1024];
                 // 랜덤한 이름으로 파일 생성
                 String tempname = Long.valueOf(new Date().getTime()).toString();
-                File tempFile = File.createTempFile(tempname, "." + format);
+                File tempFile = File.createTempFile(tempname, ".wav");
                 try (OutputStream outputStream = new FileOutputStream(tempFile)) {
                     while ((read = is.read(bytes)) != -1) {
                         outputStream.write(bytes, 0, read);
@@ -71,7 +79,7 @@ public class ClovaVoiceService {
 
                 // Set metadata for the file
                 ObjectMetadata metadata = new ObjectMetadata();
-                metadata.setContentType("audio/" + format);
+                metadata.setContentType("audio/wav");
                 metadata.setContentLength(tempFile.length());
 
                 // Upload the file to Object Storage with ACL setting
@@ -82,7 +90,9 @@ public class ClovaVoiceService {
                 amazonS3.putObject(putObjectRequest);
 
                 // Return the URL of the uploaded file
-                return amazonS3.getUrl(bucketName, fileName).toString();
+                String audioUrl = amazonS3.getUrl(bucketName, fileName).toString();
+                exercise.updateAnswerAudioUrl(audioUrl);
+                return audioUrl;
             } else { // 오류 발생
                 BufferedReader br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
                 String inputLine;

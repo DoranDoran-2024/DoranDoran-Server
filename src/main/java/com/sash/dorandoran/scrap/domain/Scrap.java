@@ -1,9 +1,11 @@
-package com.sash.dorandoran.lesson.domain;
+package com.sash.dorandoran.scrap.domain;
 
 import com.sash.dorandoran.common.BaseTimeEntity;
+import com.sash.dorandoran.lesson.domain.Exercise;
 import com.sash.dorandoran.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +26,9 @@ public class Scrap extends BaseTimeEntity {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
+    @Builder
+    public Scrap(User user, Exercise exercise) {
+        this.user = user;
+        this.exercise = exercise;
+    }
 }
