@@ -41,8 +41,8 @@ public class LessonController {
     }
 
     @Operation(
-            summary = "🔑 [실전 학습] 수업 결과 조회",
-            description = "오늘의 수업 결과를 조회합니다."
+            summary = "🔑 [실전 학습] 피드백 조회",
+            description = "사용자의 입력에 대한 피드백을 조회합니다."
     )
     @PostMapping("/exercises/{exerciseId}")
     public ResponseDto<FeedbackResponse> createFeedback(@AuthUser User user, @PathVariable Long exerciseId, @RequestBody FeedbackRequest request) {
