@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class FeedbackRequest {
 
-    private String answerText;
+    private String speechText;
 
 }

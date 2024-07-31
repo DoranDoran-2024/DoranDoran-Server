@@ -41,7 +41,7 @@ public class FeedbackService {
 
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
-        sb.append(exercise.getExerciseText()).append(", ").append(request.getAnswerText());
+        sb.append(exercise.getExerciseText()).append(", ").append(request.getSpeechText());
 
         ChatCompletionRequest.Message systemMessage = ChatCompletionRequest.Message.builder()
                 .role("system")
@@ -71,7 +71,7 @@ public class FeedbackService {
                 chatCompletionProperties.getRequestId(),
                 chatCompletionRequest));
 
-        exercise.updateFeedbackInfo(request.getAnswerText(), response.getFeedback(), response.getScore());
+        exercise.updateFeedbackInfo(request.getSpeechText(), response.getFeedback(), response.getScore());
 
         for (GradingResponse gradingResponse : response.getGrading()) {
             Grading grading = Grading.builder()
