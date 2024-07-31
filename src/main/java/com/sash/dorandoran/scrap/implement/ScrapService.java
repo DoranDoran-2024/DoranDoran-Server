@@ -8,6 +8,7 @@ import com.sash.dorandoran.lesson.domain.Exercise;
 import com.sash.dorandoran.scrap.business.ScrapMapper;
 import com.sash.dorandoran.scrap.dao.ScrapRepository;
 import com.sash.dorandoran.scrap.domain.Scrap;
+import com.sash.dorandoran.scrap.presentation.dto.ScrapRequest;
 import com.sash.dorandoran.scrap.presentation.dto.ScrapSummaryResponse;
 import com.sash.dorandoran.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -26,15 +27,16 @@ public class ScrapService {
     private final ExerciseRepository exerciseRepository;
 
     @Transactional
-    public boolean handleScrap(User user, Long exerciseId) {
-        Optional<Scrap> optionalScrap = scrapRepository.findScrapByUserAndExerciseId(user, exerciseId);
-        if (optionalScrap.isPresent()) {
-            scrapRepository.delete(optionalScrap.get());
-        } else {
-            Exercise exercise = exerciseRepository.findById(exerciseId)
-                    .orElseThrow(() -> new GeneralException(ErrorStatus.EXERCISE_NOT_FOUND));
-            Scrap scrap = buildScrap(user, exercise);
-            scrapRepository.save(scrap);
+    public boolean createScraps(User user, ScrapRequest request) {
+        List<Long> exerciseIds = request.getExerciseIds();
+        for (Long exerciseId : exerciseIds) {
+            Optional<Scrap> optionalScrap = scrapRepository.findScrapByUserAndExerciseId(user, exerciseId);
+            if (optionalScrap.isEmpty()) {
+                Exercise exercise = exerciseRepository.findById(exerciseId)
+                        .orElseThrow(() -> new GeneralException(ErrorStatus.EXERCISE_NOT_FOUND));
+                Scrap scrap = buildScrap(user, exercise);
+                scrapRepository.save(scrap);
+            }
         }
         return true;
     }

@@ -3,6 +3,7 @@ package com.sash.dorandoran.scrap.presentation;
 import com.sash.dorandoran.common.annotation.AuthUser;
 import com.sash.dorandoran.common.response.ResponseDto;
 import com.sash.dorandoran.scrap.implement.ScrapService;
+import com.sash.dorandoran.scrap.presentation.dto.ScrapRequest;
 import com.sash.dorandoran.scrap.presentation.dto.ScrapSummaryResponse;
 import com.sash.dorandoran.user.domain.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,8 +21,8 @@ public class ScrapController {
     private final ScrapService scrapService;
 
     @PostMapping
-    public ResponseDto<Boolean> handleScrap(@AuthUser User user, @RequestParam("exercise") Long exerciseId) {
-        return ResponseDto.onSuccess(scrapService.handleScrap(user, exerciseId));
+    public ResponseDto<Boolean> handleScrap(@AuthUser User user, @RequestBody ScrapRequest request) {
+        return ResponseDto.onSuccess(scrapService.createScraps(user, request));
     }
 
     @GetMapping
