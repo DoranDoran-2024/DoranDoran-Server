@@ -23,7 +23,7 @@ public class LessonController {
     private final ClovaVoiceService clovaVoiceService;
 
     @Operation(
-            summary = "🔑 [오늘의 수업] 수업 생성 및 질문 4개 생성",
+            summary = "🔑 [실전 학습] 수업 생성 및 질문 4개 생성",
             description = "오늘의 수업과 질문을 생성합니다. 응답으로 4개의 질문 정보를 반환합니다."
     )
     @PostMapping
@@ -32,7 +32,7 @@ public class LessonController {
     }
 
     @Operation(
-            summary = "🔑 [오늘의 수업] 수업 결과 조회",
+            summary = "🔑 [실전 학습] 수업 결과 조회",
             description = "오늘의 수업 결과를 조회합니다."
     )
     @GetMapping("/{lessonId}")
@@ -41,7 +41,7 @@ public class LessonController {
     }
 
     @Operation(
-            summary = "🔑 [오늘의 수업] 수업 결과 조회",
+            summary = "🔑 [실전 학습] 수업 결과 조회",
             description = "오늘의 수업 결과를 조회합니다."
     )
     @PostMapping("/exercises/{exerciseId}")
@@ -50,7 +50,7 @@ public class LessonController {
     }
 
     @Operation(
-            summary = "🔑 [오늘의 수업] 문제 음성 파일 생성",
+            summary = "🔑 [실전 학습] 문제 음성 파일 생성",
             description = "문제에 대한 음성 파일을 생성합니다. 파일 포맷은 wav입니다."
     )
     @PostMapping("/exercises/{exerciseId}/voices")
