@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ExerciseSummaryResponse {
 
     private Long exerciseId;
-    private String exerciseText;
+    private String correctText;
 
 }
