@@ -40,4 +40,5 @@ public class LessonController {
     public ResponseDto<String> synthesizeAndUpload(@AuthUser User user, @PathVariable Long exerciseId) {
         return ResponseDto.onSuccess(clovaVoiceService.synthesizeSpeechAndUpload(exerciseId));
     }
+
 }

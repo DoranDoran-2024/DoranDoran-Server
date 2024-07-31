@@ -9,12 +9,16 @@ import java.util.stream.Collectors;
 
 public class ExerciseMapper {
 
+    public static ExerciseSummaryResponse toExerciseSummaryResponse(Exercise exercise) {
+        return ExerciseSummaryResponse.builder()
+                .exerciseId(exercise.getId())
+                .exerciseText(exercise.getExerciseText())
+                .build();
+    }
+
     public static ExerciseListResponse toExerciseListResponse(Long lessonId, List<Exercise> exercises) {
         List<ExerciseSummaryResponse> exerciseSummaries = exercises.stream()
-                .map(exercise -> ExerciseSummaryResponse.builder()
-                        .exerciseId(exercise.getId())
-                        .exerciseText(exercise.getExerciseText())
-                        .build())
+                .map(ExerciseMapper::toExerciseSummaryResponse)
                 .collect(Collectors.toList());
 
         return ExerciseListResponse.builder()
@@ -22,5 +26,4 @@ public class ExerciseMapper {
                 .exercises(exerciseSummaries)
                 .build();
     }
-
 }
