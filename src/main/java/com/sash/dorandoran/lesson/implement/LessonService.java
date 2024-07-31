@@ -58,10 +58,10 @@ public class LessonService {
                 .build();
     }
 
-    private Exercise buildExercise(Lesson lesson, String exerciseText) {
+    private Exercise buildExercise(Lesson lesson, String correctText) {
         return Exercise.builder()
                 .lesson(lesson)
-                .exerciseText(exerciseText)
+                .correctText(correctText)
                 .build();
     }
 

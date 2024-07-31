@@ -41,7 +41,7 @@ public class ClovaVoiceService {
                 .orElseThrow(() -> new GeneralException(ErrorStatus.EXERCISE_NOT_FOUND));
 
         try {
-            String encodedText = URLEncoder.encode(exercise.getExerciseText(), "UTF-8");
+            String encodedText = URLEncoder.encode(exercise.getCorrectText(), "UTF-8");
             String apiURL = "https://naveropenapi.apigw.ntruss.com/tts-premium/v1/tts";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
