@@ -28,4 +28,9 @@ public class ChatController {
         return ResponseDto.onSuccess(chatService.createChatMessage(user, chatRoomId, request));
     }
 
+    @PostMapping("/{chatRoomId}/summary")
+    public ResponseDto<ChatResponse> summaryChat(@AuthUser User user, @PathVariable Long chatRoomId) {
+        return ResponseDto.onSuccess(chatService.summarizeChatRoom(user, chatRoomId));
+    }
+
 }

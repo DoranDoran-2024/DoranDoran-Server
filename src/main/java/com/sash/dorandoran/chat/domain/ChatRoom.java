@@ -21,8 +21,14 @@ public class ChatRoom extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String summary;
+
     @Builder
     public ChatRoom(User user) {
         this.user = user;
+    }
+
+    public void updateSummary(String summary) {
+        this.summary = summary;
     }
 }
