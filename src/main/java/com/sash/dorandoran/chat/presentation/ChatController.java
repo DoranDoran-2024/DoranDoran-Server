@@ -24,8 +24,8 @@ public class ChatController {
             description = "채팅방을 생성합니다."
     )
     @PostMapping
-    public ResponseDto<Boolean> createChatRoom(@AuthUser User user) {
-        return ResponseDto.onSuccess(chatService.createChatRoom(user));
+    public ResponseDto<Long> createChatRoom(@AuthUser User user) {
+        return ResponseDto.onSuccess(chatService.createChatRoom(user).getId());
     }
 
     @Operation(
